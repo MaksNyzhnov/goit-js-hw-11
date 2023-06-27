@@ -43,11 +43,11 @@ body {
         align-items: center;
         height: 40px;
         border-bottom: 1px solid green;
-        background-color: greenyellow;
+        background-color: rgb(131, 47, 131);
     }
 
     .header-input {
-        padding: 0;
+        padding: 0, 5px;
         outline: none;
         border: 2px solid black;
         border-right: none;
