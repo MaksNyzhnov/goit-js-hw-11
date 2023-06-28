@@ -5,4 +5,4 @@ const refs = {
   loadButton: document.querySelector('.load-more'),
   gallery: document.querySelector('.gallery'),
 };
-export {refs}
+export default refs;
