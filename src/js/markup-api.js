@@ -1,4 +1,4 @@
-import refs from './refs'
+import {refs} from './refs'
 export default function markupGalleryList(arr) {
   const markup = arr
     .map(
