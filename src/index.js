@@ -3,18 +3,12 @@ import { Notify } from 'notiflix';
 import simpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchAPI } from './js/images-api';
-const axios = require('axios').default;
-const BASE_URL = 'https://pixabay.com/api/';
+import markupGalleryList from './js/markup-api'
+import refs from './js/refs'
 let page = 1;
 let value = '';
 
-const refs = {
-  form: document.querySelector('.search-form'),
-  input: document.querySelector('.header-input'),
-  searchButton: document.querySelector('.header-search-button'),
-  loadButton: document.querySelector('.load-more'),
-  gallery: document.querySelector('.gallery'),
-};
+
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.loadButton.addEventListener('click', loadMore);
@@ -33,7 +27,7 @@ function onFormSubmit(evt) {
     );
     return;
   }
-  refs.loadButton.classList.remove('is-hidden');
+  // refs.loadButton.classList.remove('is-hidden');
   renderAPI();
 }
 
@@ -42,7 +36,9 @@ async function renderAPI() {
     const card = await fetchAPI(page, value);
     const cardArr = card.data.hits;
     const totalHits = await card.data.totalHits;
+
     if (totalHits === 0) {
+      refs.loadButton.classList.add('is-hidden');
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
@@ -52,7 +48,8 @@ async function renderAPI() {
       page += 1;
       markupGalleryList(cardArr);
       simpleGallery.refresh();
-      if (totalHits < 20) {
+      refs.loadButton.classList.remove('is-hidden')
+      if (totalHits < 40) {
         refs.loadButton.classList.add('is-hidden');
       }
     }
@@ -63,22 +60,11 @@ async function renderAPI() {
 }
 
 async function loadMore() {
+  
+
+  page += 1;
   try {
-    const options = {
-      params: {
-        key: '32809248-e617eb740123e44583fb94c77',
-        page: `${page}`,
-        q: `${value}`,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: 'true',
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = await axios.get(`${BASE_URL}`, options);
-    page += 1;
+  const response = await fetchAPI(page, value)
     const cardArr = await response.data.hits;
     const totalHits = await response.data.totalHits;
     markupGalleryList(cardArr);

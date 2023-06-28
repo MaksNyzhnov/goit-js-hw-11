@@ -7,6 +7,7 @@ export async function fetchAPI(page, value) {
     const options = {
       params: {
         key: '32809248-e617eb740123e44583fb94c77',
+        per_page: 40,
         page: `${page}`,
         q: `${value}`,
         image_type: 'photo',
