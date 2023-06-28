@@ -4,7 +4,7 @@ import simpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchAPI } from './js/images-api';
 import markupGalleryList from './js/markup-api'
-import {refs} from './js/refs'
+import { refs } from './js/refs'
 let page = 1;
 let value = '';
 
